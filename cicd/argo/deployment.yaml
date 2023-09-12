@@ -38,7 +38,7 @@ spec:
             - name: GIT_REPO
               value: https://github.com/mauricioscastro/blog
         - name: md2pdf
-          image: bladerunner2020/markdown-to-file
+          image: quay.io/mauriciosantiagodecastro/md2pdf
           imagePullPolicy: Always
           volumeMounts:
             - name: workdir
