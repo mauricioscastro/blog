@@ -40,6 +40,8 @@ spec:
         - workspace: git-source
           name: output
       taskSpec:
+        workspaces:
+          - name: output
         steps:
           - name: build
             image: docker.io/jekyll/builder
@@ -60,6 +62,8 @@ spec:
         - workspace: git-source 
           name: output
       taskSpec:
+        workspaces:
+          - name: output      
         params:
           - name: pdf-dest-dir
             default: $(params.pdf-dest-dir)
@@ -92,6 +96,9 @@ spec:
         - name: commit
           value: $(tasks.git-clone.results.commit)
       taskSpec:
+        workspaces:
+          - name: output
+          - name: dockerconfig        
         params:
           - name: image
             default: quay.io/mauriciosantiagodecastro/blogrunner
@@ -127,6 +134,8 @@ spec:
         - name: cd-git-repo
           value: git@github.com:mauricioscastro/blog.git
       taskSpec:
+        workspaces:
+          - name: gitssh
         params:
           - name: version 
           - name: cd-git-repo
