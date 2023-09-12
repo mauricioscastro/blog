@@ -9,9 +9,18 @@ spec:
     - name: registry-credentials
     - name: git-credentials
   params:
+    - name: git-repo
+      type: string
+      default: https://github.com/mauricioscastro/blog      
     - name: pdf-dest-dir
       type: string
-      default: /usr/local/documents/mscastro-blog         
+      default: /usr/local/documents/mscastro-blog
+    - name: target-image
+      type: string
+      default: quay.io/mauriciosantiagodecastro/blogrunner   
+    - name: cd-git-repo
+      type: string
+      default: git@github.com:mauricioscastro/blog.git          
   tasks:
     #
     # clone repo with git-clone
@@ -25,7 +34,7 @@ spec:
           name: output
       params:
         - name: url
-          value: https://github.com/mauricioscastro/blog
+          value: $(params.git-repo)
         - name: subdirectory
           value: .
         - name: deleteExisting
@@ -101,7 +110,7 @@ spec:
           - name: dockerconfig        
         params:
           - name: image
-            default: quay.io/mauriciosantiagodecastro/blogrunner
+            default: $(params.target-image)
           - name: commit 
         results:
           - name: image-tag
@@ -132,7 +141,7 @@ spec:
         - name: version
           value: $(tasks.podman.results.image-tag)
         - name: cd-git-repo
-          value: git@github.com:mauricioscastro/blog.git
+          value: $(params.cd-git-repo)
       taskSpec:
         workspaces:
           - name: gitssh
