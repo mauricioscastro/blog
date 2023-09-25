@@ -70,12 +70,14 @@ spec:
       workspaces:
         - workspace: git-source 
           name: output
+      params:
+        - name: pdf-dest-dir
+          value: $(params.pdf-dest-dir)
       taskSpec:
         workspaces:
           - name: output      
         params:
           - name: pdf-dest-dir
-            default: $(params.pdf-dest-dir)
         steps:
           - name: md-to-pdf
             image: quay.io/mauriciosantiagodecastro/md2pdf
@@ -102,6 +104,8 @@ spec:
         - workspace: registry-credentials 
           name: dockerconfig   
       params:
+        - name: image
+          value: $(params.target-image)
         - name: commit
           value: $(tasks.git-clone.results.commit)
       taskSpec:
@@ -110,7 +114,6 @@ spec:
           - name: dockerconfig        
         params:
           - name: image
-            default: $(params.target-image)
           - name: commit 
         results:
           - name: image-tag
@@ -121,8 +124,8 @@ spec:
               privileged: true 
             script: |-
               export REGISTRY_AUTH_FILE=$(workspaces.dockerconfig.path)/config.json
+              build_date=`date +'%Y%m%d%H%M%S'`          
               short=`echo $(params.commit) | cut -c 1-7`
-              build_date=`date +'%Y%m%d%H%M%S'`              
               cd $(workspaces.output.path)
               podman build . -t $(params.image):$short.$build_date
               podman push $(params.image):$short.$build_date 
