@@ -17,7 +17,7 @@
         {% assign lang = static.extname | regex_replace: '\.', '' | regex_replace: 'Containerfile', 'dockerfile' %}
         <div style="padding-top: 10px;">
           <a href="{{ static.path }}" style="color: #6d6d6d;"><div style="margin-bottom: 0; font-size: 110%; font-weight: bold;">{{ static.name }}</div></a>
-          {% highlight_param {{ lang | default: 'txt' }} %}{% include_relative {{ static.name }} %}{% endhighlight_param %}
+          {% highlight_param {{ lang }} %}{% include_relative {{ static.name }} %}{% endhighlight_param %}
           <div style="height: 15px;"></div>
         </div>
       {% endif %}

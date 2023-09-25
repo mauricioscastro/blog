@@ -3,6 +3,6 @@
     {% assign real_name = page.name | regex_replace: '\.md', '' %}
     {% assign lang = real_name | regex_replace: '^.*\.', '' | regex_replace: 'Containerfile', 'dockerfile' %}
     <a href="{{ real_name }}" style="color: #6d6d6d;"><div style="margin-bottom: 0; font-size: 110%; font-weight: bold;">{{ real_name }}</div></a>
-    {% highlight_param {{ lang | default: 'txt' }} %}{% include_relative {{ real_name }} %}{% endhighlight_param %}
+    {% highlight_param {{ lang }} %}{% include_relative {{ real_name }} %}{% endhighlight_param %}
   </div>     
 </section>
