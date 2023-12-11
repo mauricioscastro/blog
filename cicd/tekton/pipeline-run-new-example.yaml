@@ -1,11 +1,15 @@
-apiVersion: tekton.dev/v1beta1
+apiVersion: tekton.dev/v1
 kind: PipelineRun
 metadata:
+  namespace: blog
   generateName: new-pipeline-run-
 spec:
-  serviceAccountName: pipeline # openshift pipelines: oc adm policy add-scc-to-user privileged -z pipeline
+  taskRunTemplate:
+    serviceAccountName: pipeline
+  # openshift pipelines: oc adm policy add-scc-to-user privileged -z pipeline
+  # oc adm policy add-cluster-role-to-user cluster-admin -z pipeline
   pipelineRef:
-    name: new-pipeline
+    name: pipeline-blog
   workspaces:
     - name: git-source 
       volumeClaimTemplate:
@@ -20,4 +24,4 @@ spec:
         secretName: quayio-robot-credentials
     - name: git-credentials
       secret:
-        secretName: git-credentials        
+        secretName: git-credentials  
