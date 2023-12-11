@@ -1,4 +1,4 @@
-﻿apiVersion: tekton.dev/v1beta1
+﻿apiVersion: tekton.dev/v1
 kind: Pipeline
 metadata:
   name: new-pipeline
@@ -54,7 +54,6 @@ spec:
         steps:
           - name: build
             image: docker.io/jekyll/builder
-            resources: {}
             script: |-
               cd $(workspaces.output.path)
               chmod -R a+rwx .
