@@ -9,9 +9,9 @@ steps:
     find $(Build.Repository.LocalPath)
   displayName: 'Run a multi-line script'
 
-# - task: KubernetesManifest@1
-#   inputs:
-#     action: 'deploy'
-#     connectionType: 'kubernetesServiceConnection'
-#     kubernetesServiceConnection: 'openshift-ccr-devops'
-#     manifests: ''
+- task: KubernetesManifest@1
+  inputs:
+    action: 'deploy'
+    connectionType: 'kubernetesServiceConnection'
+    kubernetesServiceConnection: 'openshift-ccr-devops'
+    manifests: '$(Build.Repository.LocalPath)/cicd/argo/deployment.yaml'
