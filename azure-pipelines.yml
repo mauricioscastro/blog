@@ -5,7 +5,7 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
-- script: echo Hello, world!
+- script: ls -la /
   displayName: 'Run a one-line script'
 
 - script: |
@@ -13,9 +13,9 @@ steps:
     echo See https://aka.ms/yaml
   displayName: 'Run a multi-line script'
 
-- task: KubernetesManifest@1
-  inputs:
-    action: 'deploy'
-    connectionType: 'kubernetesServiceConnection'
-    kubernetesServiceConnection: 'openshift-ccr-devops'
-    manifests: 'apiVersion: v1 kind: Namespace metadata:   name: echo   labels:     name: echo --- apiVersion: apps/v1 kind: Deployment metadata:   name: echo   namespace: echo spec:   replicas: 1   selector:     matchLabels:       app: echo   template:     metadata:       labels:         app: echo       annotations:         sidecar.istio.io/inject: ''true''              spec:       containers:         - image: gcr.io/google_containers/echoserver:1.0           imagePullPolicy: Always           name: echo           ports:             - containerPort: 8080           resources:             requests: {} --- apiVersion: v1 kind: Service metadata:   name: echo   namespace: echo spec:   ports:     - port: 8080   selector:     app: echo'
+# - task: KubernetesManifest@1
+#   inputs:
+#     action: 'deploy'
+#     connectionType: 'kubernetesServiceConnection'
+#     kubernetesServiceConnection: 'openshift-ccr-devops'
+#     manifests: ''
