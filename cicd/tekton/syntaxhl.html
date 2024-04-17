@@ -1,0 +1,629 @@
+
+
+
+<!DOCTYPE html>
+<html lang="en-US">
+    <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/x-icon" href="/img/favicon.ico">
+    <link rel="stylesheet" href="/assets/css/style.css?v=">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+    <style>
+      header h1 {
+        font-size: 38px;
+      }
+      h1 {
+        font-size: 28px;
+      }
+      h2 {
+        font-size: 20px;
+      }      
+      body {
+        margin: 0px 50px 0px 50px; 
+      }
+      em {
+        word-wrap: break-word;
+      }
+      p {
+        word-wrap: break-word;
+      }    
+      .big img {
+        display: block;
+        max-width: 100%;
+        height: auto;
+      }
+      .text_icon img {
+        max-height: 0.7em; 
+      }
+      blockquote {
+        padding: 0 0 0 5px;
+        margin-bottom: 20px;
+        font-size: 1.1em;
+        border-left: 10px solid #9b9b9b;
+        word-wrap: break-word;
+      }
+      ul {
+        padding-left: 1em
+      }
+      li {
+        padding-left: 1em
+      }
+      li:before {
+        content: "";
+        margin-left: -0.5rem;
+      }
+      table {
+        border-collapse: collapse;
+        width: 100%;
+      }
+      th, td {
+        text-align: left;
+        padding: 8px;
+        word-wrap: break-word;
+        padding: 3px 5px 3px 5px;
+      }
+      tr:nth-child(even) {
+        background-color: #d7dae0;
+      }
+    </style>
+    <!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Blog Series | A compiled series of my day by day life stories and thoughts</title>
+<meta name="generator" content="Jekyll v3.9.5" />
+<meta property="og:title" content="Blog Series" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Syntax Highlighted Directory List" />
+<meta property="og:description" content="Syntax Highlighted Directory List" />
+<meta property="og:site_name" content="Blog Series" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Blog Series" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Syntax Highlighted Directory List","headline":"Blog Series","url":"/cicd/tekton/syntaxhl.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+  </head>
+  <body>
+    <header style="padding-bottom: 15px; padding-top: 20px;">
+  <h1 style="word-break: break-word; margin-bottom: 0; border-bottom: 0; padding-bottom: 0;">
+    <a href="/">Blog Series</a>
+    
+  </h1>
+  <div>Syntax Highlighted Directory List</div>
+</header>
+    <section>
+  <div style="word-break: break-all;">
+    <h1 style="display: inline-block; ">/cicd/tekton:</h1>
+    <div style="display: inline-block;">
+      <small>
+        
+        <a href="index.html" style="color: #6d6d6d;">(close syntax highlight)</a>
+        
+      </small>
+    </div>
+  </div>       
+  
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        
+        <div style="padding-top: 10px;">
+          <a href="/cicd/tekton/git-secret.yaml" style="color: #6d6d6d;"><div style="margin-bottom: 0; font-size: 110%; font-weight: bold;">git-secret.yaml</div></a>
+          
+<figure class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">v1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">Secret</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">git-credentials</span>
+  <span class="na">namespace</span><span class="pi">:</span> <span class="s">blog</span>
+<span class="na">data</span><span class="pi">:</span>
+  <span class="na">gitkey</span><span class="pi">:</span> <span class="s1">'</span><span class="s">'</span></code></pre></figure>
+
+          <div style="height: 15px;"></div>
+        </div>
+      
+    
+      
+        
+        <div style="padding-top: 10px;">
+          <a href="/cicd/tekton/gitlab-body.json" style="color: #6d6d6d;"><div style="margin-bottom: 0; font-size: 110%; font-weight: bold;">gitlab-body.json</div></a>
+          
+<figure class="highlight"><pre><code class="language-json" data-lang="json"><span class="p">{</span><span class="w">
+  </span><span class="nl">"object_kind"</span><span class="p">:</span><span class="w"> </span><span class="s2">"push"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"event_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"push"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"before"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1a1736ec3d7b03349b31218a2f2c572c7c7206d6"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"after"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1a1736ec3d7b03349b31218a2f2c572c7c7206d6"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"ref"</span><span class="p">:</span><span class="w"> </span><span class="s2">"refs/heads/main"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"checkout_sha"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1a1736ec3d7b03349b31218a2f2c572c7c7206d6"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"user_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">111448</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"user_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Tekton CI"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"user_username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"tekton"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"user_email"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"user_avatar"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://secure.gravatar.com/avatar/xx56773f447d86b8ffa33efb7a5d0cb5?s=80&amp;d=identicon"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"project_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">16507311</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"project"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">16507326</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"triggers"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"web_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://gitlab.com/tekton/triggers"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"avatar_url"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"git_ssh_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"git@gitlab.com:tekton/triggers.git"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"git_http_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://gitlab.com/tekton/triggers.git"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"namespace"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Tekton NS"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"visibility_level"</span><span class="p">:</span><span class="w"> </span><span class="mi">20</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"path_with_namespace"</span><span class="p">:</span><span class="w"> </span><span class="s2">"tekton/triggers"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"default_branch"</span><span class="p">:</span><span class="w"> </span><span class="s2">"main"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"ci_config_path"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"homepage"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://gitlab.com/tekton/triggers"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"git@gitlab.com:tekton/triggers.git"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"ssh_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"git@gitlab.com:tekton/triggers.git"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"http_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://gitlab.com/tekton/triggers.git"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"commits"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1a1736ec3d7b03349b31218a2f2c572c7c7206d6"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Add new file"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-01-24T17:05:48+00:00"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://gitlab.com/tekton/triggers/-/commit/1a1736ec3d7b03349b31218a2f2c572c7c7206d6"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"author"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Tekton CI"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"foo@bar.com"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nl">"added"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"Readme.md"</span><span class="p">],</span><span class="w">
+      </span><span class="nl">"modified"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+      </span><span class="nl">"removed"</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"total_commits_count"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"push_options"</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span><span class="w">
+  </span><span class="nl">"repository"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"triggers"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"git@gitlab.com:tekton/triggers.git"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"homepage"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://gitlab.com/tekton/triggers"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"git_http_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://gitlab.com/tekton/triggers.git"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"git_ssh_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"git@gitlab.com:tekton/triggers.git"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"visibility_level"</span><span class="p">:</span><span class="w"> </span><span class="mi">20</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span></code></pre></figure>
+
+          <div style="height: 15px;"></div>
+        </div>
+      
+    
+      
+        
+        <div style="padding-top: 10px;">
+          <a href="/cicd/tekton/kaniko-debug-task-tekton.yaml" style="color: #6d6d6d;"><div style="margin-bottom: 0; font-size: 110%; font-weight: bold;">kaniko-debug-task-tekton.yaml</div></a>
+          
+<figure class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">tekton.dev/v1beta1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">Task</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">kanikod</span>
+  <span class="na">namespace</span><span class="pi">:</span> <span class="s">blog</span>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">workspaces</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">dockerconfig</span>
+      <span class="na">mountPath</span><span class="pi">:</span> <span class="s">/kaniko/.docker</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">source</span>
+  <span class="na">params</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">image</span>
+      <span class="na">default</span><span class="pi">:</span> <span class="s">quay.io/mauriciosantiagodecastro/blogrunner</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">commit</span> 
+  <span class="na">steps</span><span class="pi">:</span>  
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">build-and-push</span>
+      <span class="na">image</span><span class="pi">:</span> <span class="s">gcr.io/kaniko-project/executor:debug</span>
+      <span class="na">securityContext</span><span class="pi">:</span>
+        <span class="na">runAsUser</span><span class="pi">:</span> <span class="m">0</span>
+      <span class="na">script</span><span class="pi">:</span> <span class="pi">|-</span> 
+        <span class="s">short=`echo $(params.commit) | cut -c 1-7`</span>
+        <span class="s">build_date=`date +'%Y%m%d%H%M%S'`</span>
+        <span class="s">/kaniko/executor --skip-tls-verify \</span>
+        <span class="s">-f Containerfile \</span>
+        <span class="s">-d $(params.image):$short.$build_date \</span>
+        <span class="s">-c $(workspaces.source.path)</span></code></pre></figure>
+
+          <div style="height: 15px;"></div>
+        </div>
+      
+    
+      
+        
+        <div style="padding-top: 10px;">
+          <a href="/cicd/tekton/pipeline-new-pipeline.yaml" style="color: #6d6d6d;"><div style="margin-bottom: 0; font-size: 110%; font-weight: bold;">pipeline-new-pipeline.yaml</div></a>
+          
+<figure class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">tekton.dev/v1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">Pipeline</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">new-pipeline</span>
+  <span class="na">namespace</span><span class="pi">:</span> <span class="s">blog</span>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">workspaces</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">git-source</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">registry-credentials</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">git-credentials</span>
+  <span class="na">params</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">git-repo</span>
+      <span class="na">type</span><span class="pi">:</span> <span class="s">string</span>
+      <span class="na">default</span><span class="pi">:</span> <span class="s">https://github.com/mauricioscastro/blog</span>      
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">pdf-dest-dir</span>
+      <span class="na">type</span><span class="pi">:</span> <span class="s">string</span>
+      <span class="na">default</span><span class="pi">:</span> <span class="s">/usr/local/documents/mscastro-blog</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">target-image</span>
+      <span class="na">type</span><span class="pi">:</span> <span class="s">string</span>
+      <span class="na">default</span><span class="pi">:</span> <span class="s">quay.io/mauriciosantiagodecastro/blogrunner</span>   
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">cd-git-repo</span>
+      <span class="na">type</span><span class="pi">:</span> <span class="s">string</span>
+      <span class="na">default</span><span class="pi">:</span> <span class="s">git@github.com:mauricioscastro/blog.git</span>          
+  <span class="na">tasks</span><span class="pi">:</span>
+    <span class="c1">#</span>
+    <span class="c1"># clone repo with git-clone</span>
+    <span class="c1">#    </span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">git-clone</span>
+      <span class="na">taskRef</span><span class="pi">:</span>
+        <span class="na">kind</span><span class="pi">:</span> <span class="s">ClusterTask</span>
+        <span class="na">name</span><span class="pi">:</span> <span class="s">git-clone</span>
+      <span class="na">workspaces</span><span class="pi">:</span>
+        <span class="pi">-</span> <span class="na">workspace</span><span class="pi">:</span> <span class="s">git-source</span>
+          <span class="na">name</span><span class="pi">:</span> <span class="s">output</span>
+      <span class="na">params</span><span class="pi">:</span>
+        <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">url</span>
+          <span class="na">value</span><span class="pi">:</span> <span class="s">$(params.git-repo)</span>
+        <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">subdirectory</span>
+          <span class="na">value</span><span class="pi">:</span> <span class="s">.</span>
+        <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">deleteExisting</span>
+          <span class="na">value</span><span class="pi">:</span> <span class="s1">'</span><span class="s">true'</span>
+    <span class="c1">#</span>
+    <span class="c1"># test build with jekyll</span>
+    <span class="c1">#            </span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">build-site</span>
+      <span class="na">runAfter</span><span class="pi">:</span>
+        <span class="pi">-</span> <span class="s">git-clone</span>     
+      <span class="na">workspaces</span><span class="pi">:</span>
+        <span class="pi">-</span> <span class="na">workspace</span><span class="pi">:</span> <span class="s">git-source</span>
+          <span class="na">name</span><span class="pi">:</span> <span class="s">output</span>
+      <span class="na">taskSpec</span><span class="pi">:</span>
+        <span class="na">workspaces</span><span class="pi">:</span>
+          <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">output</span>
+        <span class="na">steps</span><span class="pi">:</span>
+          <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">build</span>
+            <span class="na">image</span><span class="pi">:</span> <span class="s">docker.io/jekyll/builder</span>
+            <span class="na">script</span><span class="pi">:</span> <span class="pi">|-</span>
+              <span class="s">cd $(workspaces.output.path)</span>
+              <span class="s">chmod -R a+rwx .</span>
+              <span class="s">bundle config set path /tmp/bundle</span>
+              <span class="s">bundle install</span>
+              <span class="s">bundler exec jekyll build -d /tmp/site --incremental</span>
+    <span class="c1">#</span>
+    <span class="c1"># test md conversion to pdf</span>
+    <span class="c1">#                   </span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">add-pdf</span>
+      <span class="na">runAfter</span><span class="pi">:</span>
+        <span class="pi">-</span> <span class="s">build-site</span>
+      <span class="na">workspaces</span><span class="pi">:</span>
+        <span class="pi">-</span> <span class="na">workspace</span><span class="pi">:</span> <span class="s">git-source</span> 
+          <span class="na">name</span><span class="pi">:</span> <span class="s">output</span>
+      <span class="na">params</span><span class="pi">:</span>
+        <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">pdf-dest-dir</span>
+          <span class="na">value</span><span class="pi">:</span> <span class="s">$(params.pdf-dest-dir)</span>
+      <span class="na">taskSpec</span><span class="pi">:</span>
+        <span class="na">workspaces</span><span class="pi">:</span>
+          <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">output</span>      
+        <span class="na">params</span><span class="pi">:</span>
+          <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">pdf-dest-dir</span>
+        <span class="na">steps</span><span class="pi">:</span>
+          <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">md-to-pdf</span>
+            <span class="na">image</span><span class="pi">:</span> <span class="s">quay.io/mauriciosantiagodecastro/md2pdf</span>
+            <span class="na">script</span><span class="pi">:</span> <span class="pi">|-</span>
+              <span class="s">mkdir -p $(params.pdf-dest-dir)</span>
+              <span class="s">cp -r $(workspaces.output.path)/* $(params.pdf-dest-dir)</span>
+              <span class="s">for md in `find $(params.pdf-dest-dir) -name "*.md" -size +10c | grep -v 404`; do </span>
+                <span class="s">m2f $md pdf \</span>
+                  <span class="s">footerTemplate="&lt;div style=\"font-size: 9px; margin: 0 auto;\"&gt; &lt;span class="pageNumber"&gt;&lt;/span&gt; / &lt;span class="totalPages"&gt;&lt;/span&gt;&lt;/div&gt;" \</span>
+                  <span class="s">headerTemplate="&lt;span/&gt;" margin.top="0.8cm" </span>
+              <span class="s">done</span>
+              <span class="s">pdf_count=`find $(params.pdf-dest-dir) -name  "*.pdf" | wc -l`</span>
+              <span class="s">echo "number of converted pdfs: $pdf_count"</span>
+              <span class="s">test $pdf_count -gt 0</span>
+    <span class="c1">#</span>
+    <span class="c1"># use podman to push </span>
+    <span class="c1">#        </span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">podman</span>
+      <span class="na">runAfter</span><span class="pi">:</span>
+        <span class="pi">-</span> <span class="s">add-pdf</span>
+      <span class="na">workspaces</span><span class="pi">:</span>
+        <span class="pi">-</span> <span class="na">workspace</span><span class="pi">:</span> <span class="s">git-source</span> 
+          <span class="na">name</span><span class="pi">:</span> <span class="s">output</span>
+        <span class="pi">-</span> <span class="na">workspace</span><span class="pi">:</span> <span class="s">registry-credentials</span> 
+          <span class="na">name</span><span class="pi">:</span> <span class="s">dockerconfig</span>   
+      <span class="na">params</span><span class="pi">:</span>
+        <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">image</span>
+          <span class="na">value</span><span class="pi">:</span> <span class="s">$(params.target-image)</span>
+        <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">commit</span>
+          <span class="na">value</span><span class="pi">:</span> <span class="s">$(tasks.git-clone.results.commit)</span>
+      <span class="na">taskSpec</span><span class="pi">:</span>
+        <span class="na">workspaces</span><span class="pi">:</span>
+          <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">output</span>
+          <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">dockerconfig</span>        
+        <span class="na">params</span><span class="pi">:</span>
+          <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">image</span>
+          <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">commit</span> 
+        <span class="na">results</span><span class="pi">:</span>
+          <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">image-tag</span>
+        <span class="na">steps</span><span class="pi">:</span>
+          <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">build-and-push</span>
+            <span class="na">image</span><span class="pi">:</span> <span class="s">quay.io/podman/stable</span>
+            <span class="na">securityContext</span><span class="pi">:</span>
+              <span class="na">privileged</span><span class="pi">:</span> <span class="no">true</span> 
+            <span class="na">script</span><span class="pi">:</span> <span class="pi">|-</span>
+              <span class="s">export REGISTRY_AUTH_FILE=$(workspaces.dockerconfig.path)/config.json</span>
+              <span class="s">build_date=`date +'%Y%m%d%H%M%S'`          </span>
+              <span class="s">short=`echo $(params.commit) | cut -c 1-7`</span>
+              <span class="s">cd $(workspaces.output.path)</span>
+              <span class="s">podman build . -t $(params.image):$short.$build_date</span>
+              <span class="s">podman push $(params.image):$short.$build_date </span>
+              <span class="s">podman push $(params.image):$short.$build_date $(params.image):latest</span>
+              <span class="s">echo "$short.$build_date" &gt; $(results.image-tag.path)</span>
+    <span class="c1">#</span>
+    <span class="c1"># update deployment so argo can sense and flag out-of-sync</span>
+    <span class="c1">#     </span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">cd-update</span>
+      <span class="na">runAfter</span><span class="pi">:</span>
+        <span class="pi">-</span> <span class="s">podman</span>
+      <span class="na">workspaces</span><span class="pi">:</span>
+        <span class="pi">-</span> <span class="na">workspace</span><span class="pi">:</span> <span class="s">git-credentials</span> 
+          <span class="na">name</span><span class="pi">:</span> <span class="s">gitssh</span>   
+      <span class="na">params</span><span class="pi">:</span>
+        <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">version</span>
+          <span class="na">value</span><span class="pi">:</span> <span class="s">$(tasks.podman.results.image-tag)</span>
+        <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">cd-git-repo</span>
+          <span class="na">value</span><span class="pi">:</span> <span class="s">$(params.cd-git-repo)</span>
+      <span class="na">taskSpec</span><span class="pi">:</span>
+        <span class="na">workspaces</span><span class="pi">:</span>
+          <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">gitssh</span>
+        <span class="na">params</span><span class="pi">:</span>
+          <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">version</span> 
+          <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">cd-git-repo</span>
+        <span class="na">steps</span><span class="pi">:</span>
+          <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">update-deployment</span>
+            <span class="na">image</span><span class="pi">:</span> <span class="s">docker.io/alpine</span>
+            <span class="na">script</span><span class="pi">:</span> <span class="pi">|-</span>   
+              <span class="s">git_repo=$(params.cd-git-repo)</span>
+              <span class="s">manifest=cicd/argo/deployment.yaml</span>
+              <span class="s">export VERSION=$(params.version)</span>
+              <span class="s">export GIT_SSH_COMMAND="ssh -i /tmp/gitkey -o IdentitiesOnly=yes -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"</span>
+              <span class="s">cp $(workspaces.gitssh.path)/gitkey /tmp</span>
+              <span class="s">chmod 0400 /tmp/gitkey</span>
+              <span class="s">apk --no-cache add yq git openssh &gt; /dev/null 2&gt;&amp;1</span>
+              <span class="s">git config --global user.email "tekton@openshift"</span>
+              <span class="s">git config --global user.name "tekton"</span>
+              <span class="s">git clone $git_repo 2&gt; /dev/null</span>
+              <span class="s">cd `echo $git_repo | sed -e 's/.git//g' -e 's;.*/;;g'`</span>
+              <span class="s">yq -i 'with(select(.kind=="Deployment" and .metadata.name=="blog"); .metadata.labels."app.kubernetes.io/version" = strenv(VERSION))' $manifest</span>
+              <span class="s">git add $manifest</span>
+              <span class="s">git commit -m "updating deployments with version $VERSION"</span>
+              <span class="s">git push 2&gt; /dev/null</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">clean</span>
+      <span class="na">runAfter</span><span class="pi">:</span>
+        <span class="pi">-</span> <span class="s">cd-update</span> 
+      <span class="na">taskSpec</span><span class="pi">:</span>
+        <span class="na">steps</span><span class="pi">:</span>
+          <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">clean</span>
+            <span class="na">image</span><span class="pi">:</span> <span class="s">docker.io/alpine</span>
+            <span class="na">script</span><span class="pi">:</span> <span class="pi">|-</span>
+              <span class="s">echo "nothing to do"             </span></code></pre></figure>
+
+          <div style="height: 15px;"></div>
+        </div>
+      
+    
+      
+        
+        <div style="padding-top: 10px;">
+          <a href="/cicd/tekton/pipeline-run-new-example.yaml" style="color: #6d6d6d;"><div style="margin-bottom: 0; font-size: 110%; font-weight: bold;">pipeline-run-new-example.yaml</div></a>
+          
+<figure class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">tekton.dev/v1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">PipelineRun</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">namespace</span><span class="pi">:</span> <span class="s">blog</span>
+  <span class="na">generateName</span><span class="pi">:</span> <span class="s">new-pipeline-run-</span>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">taskRunTemplate</span><span class="pi">:</span>
+    <span class="na">serviceAccountName</span><span class="pi">:</span> <span class="s">pipeline</span>
+  <span class="c1"># openshift pipelines: oc adm policy add-scc-to-user privileged -z pipeline</span>
+  <span class="c1"># oc adm policy add-cluster-role-to-user cluster-admin -z pipeline</span>
+  <span class="na">pipelineRef</span><span class="pi">:</span>
+    <span class="na">name</span><span class="pi">:</span> <span class="s">pipeline-blog</span>
+  <span class="na">workspaces</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">git-source</span> 
+      <span class="na">volumeClaimTemplate</span><span class="pi">:</span>
+        <span class="na">spec</span><span class="pi">:</span>
+          <span class="na">accessModes</span><span class="pi">:</span>
+            <span class="pi">-</span> <span class="s">ReadWriteOnce</span> 
+          <span class="na">resources</span><span class="pi">:</span>
+            <span class="na">requests</span><span class="pi">:</span>
+              <span class="na">storage</span><span class="pi">:</span> <span class="s">1Gi</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">registry-credentials</span>
+      <span class="na">secret</span><span class="pi">:</span>
+        <span class="na">secretName</span><span class="pi">:</span> <span class="s">quayio-robot-credentials</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">git-credentials</span>
+      <span class="na">secret</span><span class="pi">:</span>
+        <span class="na">secretName</span><span class="pi">:</span> <span class="s">git-credentials</span>  </code></pre></figure>
+
+          <div style="height: 15px;"></div>
+        </div>
+      
+    
+      
+        
+        <div style="padding-top: 10px;">
+          <a href="/cicd/tekton/quayio-robot-secret.yaml" style="color: #6d6d6d;"><div style="margin-bottom: 0; font-size: 110%; font-weight: bold;">quayio-robot-secret.yaml</div></a>
+          
+<figure class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">v1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">Secret</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">quayio-robot-credentials</span>
+  <span class="na">namespace</span><span class="pi">:</span> <span class="s">blog</span>
+<span class="na">data</span><span class="pi">:</span>
+  <span class="na">config.json</span><span class="pi">:</span> <span class="s1">'</span><span class="s">'</span></code></pre></figure>
+
+          <div style="height: 15px;"></div>
+        </div>
+      
+    
+      
+        
+        <div style="padding-top: 10px;">
+          <a href="/cicd/tekton/sim-gitlab-push.sh" style="color: #6d6d6d;"><div style="margin-bottom: 0; font-size: 110%; font-weight: bold;">sim-gitlab-push.sh</div></a>
+          
+<figure class="highlight"><pre><code class="language-sh" data-lang="sh">curl <span class="nt">-v</span> <span class="nt">-H</span> <span class="s1">'X-GitLab-Token: 1234567'</span> <span class="nt">-H</span> <span class="s1">'X-Gitlab-Event: Push Hook'</span> <span class="nt">-H</span> <span class="s1">'Content-Type: application/json'</span> <span class="nt">--data-binary</span> <span class="s2">"@gitlab-body.json"</span></code></pre></figure>
+
+          <div style="height: 15px;"></div>
+        </div>
+      
+    
+      
+        
+        <div style="padding-top: 10px;">
+          <a href="/cicd/tekton/triggertp+eventlstnrl.yaml" style="color: #6d6d6d;"><div style="margin-bottom: 0; font-size: 110%; font-weight: bold;">triggertp+eventlstnrl.yaml</div></a>
+          
+<figure class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">triggers.tekton.dev/v1beta1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">TriggerTemplate</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">new-trigger-template</span>
+  <span class="na">namespace</span><span class="pi">:</span> <span class="s">blog</span>  
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">resourcetemplates</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">apiVersion</span><span class="pi">:</span> <span class="s">tekton.dev/v1beta1</span>
+    <span class="na">kind</span><span class="pi">:</span> <span class="s">PipelineRun</span>
+    <span class="na">metadata</span><span class="pi">:</span>
+      <span class="na">generateName</span><span class="pi">:</span> <span class="s">new-pipeline-run-</span>
+    <span class="na">spec</span><span class="pi">:</span>
+      <span class="na">pipelineRef</span><span class="pi">:</span>
+        <span class="na">name</span><span class="pi">:</span> <span class="s">new-pipeline</span>
+      <span class="na">serviceAccountName</span><span class="pi">:</span> <span class="s">pipeline</span>
+      <span class="na">workspaces</span><span class="pi">:</span>
+        <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">git-source</span>
+          <span class="na">volumeClaimTemplate</span><span class="pi">:</span>
+            <span class="na">spec</span><span class="pi">:</span>
+              <span class="na">accessModes</span><span class="pi">:</span>
+                <span class="pi">-</span> <span class="s">ReadWriteOnce</span> 
+              <span class="na">resources</span><span class="pi">:</span>
+                <span class="na">requests</span><span class="pi">:</span>
+                  <span class="na">storage</span><span class="pi">:</span> <span class="s">1Gi</span>
+<span class="nn">---</span>
+<span class="na">apiVersion</span><span class="pi">:</span> <span class="s">triggers.tekton.dev/v1alpha1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">TriggerBinding</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">new-trigger-binding</span>
+  <span class="na">namespace</span><span class="pi">:</span> <span class="s">blog</span>  
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">params</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">gitrevision</span>
+      <span class="na">value</span><span class="pi">:</span> <span class="s">$(body.checkout_sha)</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">gitrepositoryurl</span>
+      <span class="na">value</span><span class="pi">:</span> <span class="s">$(body.repository.git_http_url)</span>
+<span class="nn">---</span>
+<span class="na">apiVersion</span><span class="pi">:</span> <span class="s">v1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">Secret</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">git-secret</span>
+  <span class="na">namespace</span><span class="pi">:</span> <span class="s">blog</span>  
+<span class="na">type</span><span class="pi">:</span> <span class="s">Opaque</span>
+<span class="na">stringData</span><span class="pi">:</span>
+  <span class="na">secretToken</span><span class="pi">:</span> <span class="s2">"</span><span class="s">1234567"</span>
+<span class="nn">---</span>
+<span class="na">apiVersion</span><span class="pi">:</span> <span class="s">triggers.tekton.dev/v1beta1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">EventListener</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">gitlab-listener-new</span>
+  <span class="na">namespace</span><span class="pi">:</span> <span class="s">blog</span>  
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">serviceAccountName</span><span class="pi">:</span> <span class="s">pipeline</span>
+  <span class="na">triggers</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">gitlab-push-events-trigger</span>
+      <span class="na">interceptors</span><span class="pi">:</span>
+        <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">verify-gitlab-payload</span>
+          <span class="na">ref</span><span class="pi">:</span>
+            <span class="na">name</span><span class="pi">:</span> <span class="s">gitlab</span>
+            <span class="na">kind</span><span class="pi">:</span> <span class="s">ClusterInterceptor</span>
+          <span class="na">params</span><span class="pi">:</span>
+            <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">secretRef</span>
+              <span class="na">value</span><span class="pi">:</span>
+                <span class="na">secretName</span><span class="pi">:</span> <span class="s">git-secret</span>
+                <span class="na">secretKey</span><span class="pi">:</span> <span class="s">secretToken</span>
+            <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">eventTypes</span>
+              <span class="na">value</span><span class="pi">:</span>
+                <span class="pi">-</span> <span class="s2">"</span><span class="s">Push</span><span class="nv"> </span><span class="s">Hook"</span>
+      <span class="na">bindings</span><span class="pi">:</span>
+        <span class="pi">-</span> <span class="na">ref</span><span class="pi">:</span> <span class="s">new-trigger-binding</span>
+      <span class="na">template</span><span class="pi">:</span>
+        <span class="na">ref</span><span class="pi">:</span> <span class="s">new-trigger-template</span></code></pre></figure>
+
+          <div style="height: 15px;"></div>
+        </div>
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+     
+  
+</section>
+    <footer style="margin-top: 0;">
+  
+</footer>
+  </body>
+</html>

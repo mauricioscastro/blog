@@ -1,0 +1,331 @@
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en-US">
+    <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/x-icon" href="/img/favicon.ico">
+    <link rel="stylesheet" href="/assets/css/style.css?v=">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+    <style>
+      header h1 {
+        font-size: 38px;
+      }
+      h1 {
+        font-size: 28px;
+      }
+      h2 {
+        font-size: 20px;
+      }      
+      body {
+        margin: 0px 50px 0px 50px; 
+      }
+      em {
+        word-wrap: break-word;
+      }
+      p {
+        word-wrap: break-word;
+      }    
+      .big img {
+        display: block;
+        max-width: 100%;
+        height: auto;
+      }
+      .text_icon img {
+        max-height: 0.7em; 
+      }
+      blockquote {
+        padding: 0 0 0 5px;
+        margin-bottom: 20px;
+        font-size: 1.1em;
+        border-left: 10px solid #9b9b9b;
+        word-wrap: break-word;
+      }
+      ul {
+        padding-left: 1em
+      }
+      li {
+        padding-left: 1em
+      }
+      li:before {
+        content: "";
+        margin-left: -0.5rem;
+      }
+      table {
+        border-collapse: collapse;
+        width: 100%;
+      }
+      th, td {
+        text-align: left;
+        padding: 8px;
+        word-wrap: break-word;
+        padding: 3px 5px 3px 5px;
+      }
+      tr:nth-child(even) {
+        background-color: #d7dae0;
+      }
+    </style>
+    <!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Tech Blog Series | Blog Series</title>
+<meta name="generator" content="Jekyll v3.9.5" />
+<meta property="og:title" content="Tech Blog Series" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="A compiled series of real world scenario stories from the business as usual days of a IT architect" />
+<meta property="og:description" content="A compiled series of real world scenario stories from the business as usual days of a IT architect" />
+<meta property="og:site_name" content="Blog Series" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Tech Blog Series" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"A compiled series of real world scenario stories from the business as usual days of a IT architect","headline":"Tech Blog Series","url":"/redhat/idp/cert+ldap/"}</script>
+<!-- End Jekyll SEO tag -->
+
+  </head>
+  <body>
+    <header style="padding-bottom: 15px; padding-top: 20px;">
+  <h1 style="word-break: break-word; margin-bottom: 0; border-bottom: 0; padding-bottom: 0;">
+    <a href="/">Tech Blog Series</a>
+    
+  </h1>
+  <div>A compiled series of real world scenario stories from the business as usual days of a IT architect</div>
+</header>
+    <section>
+  <h1 id="the-case-of-the-impossible-additional-users">The case of the impossible additional users</h1>
+<h2 id="abstract-and-motivation">Abstract and Motivation</h2>
+<p>Working in a engagemt for a <a href="https://docs.openshift.com/dedicated/osd_planning/gcp-ccs.html">OSD non CCS in GCP</a> I found myself caught in a strange situation. While helping the dedicated engineer working with the cluster he posed to me the issue: “I need to create new users in the cluster, but there’s no IDP yet defined by the client”, meaning from <a href="https://docs.openshift.com/container-platform/4.13/authentication/index.html">all the many possible IDPs managed Openshift</a> can use the only one in place was htpasswd and the one user possible was already taken, the one he was operating with. Yes, htpasswd IDP in a managed Openshift can only have one user defined.</p>
+
+<p>The motivation for this blog is exactly that. Extra users were needed temporarily and if possible with logins the same as their future logins would be. The future IDP coming was LDAP.</p>
+
+<p>At the time I offered him, in my humble opinion, what would be two of the most quick (and almost dirty) solutions from the top of my head, I said “ok, create a good old user that will authenticate with a good old kubernetes client certificate and/or setup a temporary LDAP server and use the LDAP IDP”.</p>
+
+<p>What seemed to me at the time a fast and easy solution was not in fact so automatic to pull off the hat, so I decided to put together all the scripting, code, actions, steps taken to make it not only possible, but also simple in this blog + code post.</p>
+
+<h2 id="authenticate-with-a-user-certificate">Authenticate with a user certificate</h2>
+<p><a href="https://access.redhat.com/solutions/5360261">This solution is part of Red Hat’s solution knowledge base</a> and can also be found in <a href="https://kubernetes.io/docs/reference/access-authn-authz/certificate-signing-requests/#normal-user">Kubernetes official documentation</a>. With this, all you need to do is follow those instructions or clone the blog repo and run the <a href="/redhat/idp/cert+ldap/cert/create-cert-user.sh">create-cert-user</a> script (<a href="https://github.com/mikefarah/yq/releases">yq</a> is needed to run it). You’ll need to be logged as administrator into the cluster you are currently targeting.</p>
+
+<p><img class="emoji" title=":bulb:" alt=":bulb:" src="https://github.githubassets.com/images/icons/emoji/unicode/1f4a1.png" height="20" width="20"> The knowledge base procedure considers your kube config first cluster entry is the cluster you want when creating the new context. If you work with many clusters at once this may not be true for you, please check your kube config with</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>oc config get-clusters
+</code></pre></div></div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># from repo base directory</span>
+<span class="nb">cd </span>redhat/idp/cert+ldap/cert
+./create-cert-user.sh newuser
+</code></pre></div></div>
+<p>In case you don’t want to clone the repo here’s the script:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">cfg</span><span class="o">=</span><span class="s2">"</span><span class="nv">$HOME</span><span class="s2">/.kube/config"</span>
+<span class="nb">export </span><span class="nv">usr</span><span class="o">=</span><span class="nv">$1</span>
+<span class="nb">export </span><span class="nv">cluster</span><span class="o">=</span><span class="sb">`</span>oc config get-contexts | <span class="nb">grep</span> <span class="s1">'^*'</span> | <span class="nb">awk</span> <span class="s1">'{print $3}'</span><span class="sb">`</span>
+<span class="nb">export </span><span class="nv">ctx</span><span class="o">=</span><span class="s2">"</span><span class="nv">$usr</span><span class="s2">@</span><span class="nv">$cluster</span><span class="s2">"</span>
+<span class="nv">current_ctx</span><span class="o">=</span><span class="sb">`</span>oc config current-context<span class="sb">`</span>
+
+openssl req <span class="nt">-new</span> <span class="nt">-newkey</span> rsa:2048 <span class="nt">-nodes</span> <span class="nt">-keyout</span> <span class="nv">$usr</span>.key <span class="nt">-out</span> <span class="nv">$usr</span>.csr <span class="nt">-subj</span> <span class="s2">"/CN=</span><span class="nv">$usr</span><span class="s2">"</span>
+oc create user <span class="nv">$usr</span>
+
+<span class="nb">cat</span> <span class="o">&lt;&lt;</span><span class="no">EOF</span><span class="sh"> | oc apply -f -
+apiVersion: certificates.k8s.io/v1
+kind: CertificateSigningRequest
+metadata:
+  name: </span><span class="nv">$usr</span><span class="sh">
+spec:
+  request: `cat </span><span class="nv">$usr</span><span class="sh">.csr | base64 -w 0`
+  signerName: kubernetes.io/kube-apiserver-client
+  expirationSeconds: 31536000
+  usages:
+  - client auth
+</span><span class="no">EOF
+
+</span><span class="nb">sleep </span>1
+oc adm certificate approve <span class="nv">$usr</span>
+<span class="nb">sleep </span>3
+oc get csr <span class="nv">$usr</span> <span class="nt">-o</span> <span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{.status.certificate}'</span> | <span class="nb">base64</span> <span class="nt">-d</span> <span class="o">&gt;</span> <span class="nv">$usr</span>.crt
+oc config set-credentials <span class="nv">$usr</span> <span class="nt">--client-certificate</span><span class="o">=</span><span class="nv">$usr</span>.crt <span class="nt">--client-key</span><span class="o">=</span><span class="nv">$usr</span>.key <span class="nt">--embed-certs</span><span class="o">=</span><span class="nb">true
+</span>oc config set-context <span class="s2">"</span><span class="nv">$ctx</span><span class="s2">"</span> <span class="nt">--namespace</span><span class="o">=</span>default <span class="nt">--cluster</span><span class="o">=</span><span class="nv">$cluster</span> <span class="nt">--user</span><span class="o">=</span><span class="nv">$usr</span>
+oc config use-context <span class="s2">"</span><span class="nv">$ctx</span><span class="s2">"</span> 
+oc <span class="nb">whoami
+</span>oc config use-context <span class="s2">"</span><span class="nv">$current_ctx</span><span class="s2">"</span> 
+
+
+<span class="c"># extract the context recently created to share with created user owner</span>
+<span class="nb">cat</span> <span class="o">&lt;&lt;</span><span class="no">EOF</span><span class="sh"> | yq &gt; </span><span class="nv">$usr</span><span class="sh">.cfg
+apiVersion: v1
+kind: Config
+preferences: {}
+current-context: </span><span class="nv">$ctx</span><span class="sh">
+clusters: 
+- 
+`yq '.clusters[] | select(.name == strenv(cluster))' </span><span class="nv">$cfg</span><span class="sh"> | sed -e 's/^/  /g'`
+users:
+- 
+`yq '.users [] | select(.name == strenv(usr))' </span><span class="nv">$cfg</span><span class="sh"> | sed -e 's/^/  /g'`
+contexts:
+-
+`yq '.contexts [] | select(.name == strenv(ctx))' </span><span class="nv">$cfg</span><span class="sh"> | sed -e 's/^/  /g'`
+</span><span class="no">EOF
+</span></code></pre></div></div>
+<p><img class="emoji" title=":point_up:" alt=":point_up:" src="https://github.githubassets.com/images/icons/emoji/unicode/261d.png" height="20" width="20"> The file named <em>‘newuser.cfg’</em> from the above script should be a valid kube config file that can be shared with the newly created user.</p>
+
+<p><img class="emoji" title=":point_right:" alt=":point_right:" src="https://github.githubassets.com/images/icons/emoji/unicode/1f449.png" height="20" width="20"> Remember to bind a role to the new user.</p>
+
+<blockquote>
+  <p><img class="emoji" title=":heavy_exclamation_mark:" alt=":heavy_exclamation_mark:" src="https://github.githubassets.com/images/icons/emoji/unicode/2757.png" height="20" width="20"> Attention to the fact that the users’ private keys will be lying around and embedded in the kube config <img class="emoji" title=":heavy_exclamation_mark:" alt=":heavy_exclamation_mark:" src="https://github.githubassets.com/images/icons/emoji/unicode/2757.png" height="20" width="20"></p>
+</blockquote>
+
+<h2 id="authenticate-with-a-ldap-deployed-in-the-cluster">Authenticate with a LDAP deployed in the cluster</h2>
+<p>With LDAP as the second quick and almost dirty solution to rapidly create users for the cluster I needed a simple, no-thrills LDAP server to run and I found <a href="https://glauth.github.io">Glauth</a> which is tested, neat and has a different number of backend choices for the user database including simple text config in TOML, which we’re using below.</p>
+
+<p>In the repo you’ll find a <a href="/redhat/idp/cert+ldap/ldap/deployment.yaml">deployment manifest</a> with everything, but first you need to generate the key and certificate for the secure port of the LDAP server and update the <em>‘ConfigMap’</em> in the deployment file with both. If you generate the certificate and key with different names than the example below bare in mind <a href="#configure-an-ldap-idp">the IDP configuration step</a> will need to be modified accordingly.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>openssl genrsa -out glauth.key 2048
+openssl req -new -x509 -sha256 -key glauth.key -out glauth.crt -subj "/CN=glauth" -days 3650 -addext "subjectAltName=DNS:glauth.glauth.svc.cluster.local, DNS:glauth.ddns.net, DNS:glauth.duckdns.org, DNS:glauth.mscastro.net"
+</code></pre></div></div>
+
+<p>If you are planning on <a href="#exposing-your-internal-ldap">exposing the service to the outside of the cluster</a> you need to add the DNS names you intend using to <em>‘subjectAltName’</em> when generating the certificate. Also, if for any extraordinary reason you are not using the default domain name of a kubernetes cluster, you also need to adjust <em>‘glauth.glauth.svc.cluster.local’</em> to your needs.</p>
+
+<p>If you have <a href="https://github.com/mikefarah/yq/releases">yq</a> installed you can run the <a href="/redhat/idp/cert+ldap/ldap/create-cert-and-deploy.sh">create-cert-and-deploy</a> script from the repo to accomplish all of the above in one go, see it below</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># from repo base directory</span>
+<span class="nb">cd </span>redhat/idp/cert+ldap/ldap
+./create-cert-and-deploy.sh
+</code></pre></div></div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">dns_names</span><span class="o">=</span><span class="s2">"glauth.glauth.svc.cluster.local glauth.ddns.net glauth.duckdns.org glauth.mscastro.net"</span>
+<span class="nv">subj_alt_name</span><span class="o">=</span><span class="s2">"subjectAltName=DNS:</span><span class="sb">`</span><span class="nb">echo</span> <span class="nv">$dns_names</span> | <span class="nb">sed</span> <span class="nt">-e</span> <span class="s1">'s/ /,DNS:/g'</span><span class="sb">`</span><span class="s2">"</span>
+
+openssl genrsa <span class="nt">-out</span> glauth.key 2048
+openssl req <span class="nt">-new</span> <span class="nt">-x509</span> <span class="nt">-sha256</span> <span class="nt">-key</span> glauth.key <span class="nt">-out</span> glauth.crt <span class="nt">-subj</span> <span class="s2">"/CN=glauth"</span> <span class="nt">-days</span> 3650 <span class="nt">-addext</span> <span class="s2">"</span><span class="nv">$subj_alt_name</span><span class="s2">"</span>
+yq <span class="s1">'with(select(.kind=="ConfigMap" and .metadata.name=="glauth"); .data."glauth.key" = load_str("glauth.key") | .data."glauth.crt" = load_str("glauth.crt"))'</span> deployment.yaml | oc apply <span class="nt">-f</span> -
+</code></pre></div></div>
+
+<p>If you did not use the above script, of course you need to run <code class="language-plaintext highlighter-rouge">oc apply -f deployment.yaml</code> before moving on.</p>
+
+<p>Let’s use a image container with ldapsearch and test it from inside the cluster:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>oc debug --image=emeraldsquad/ldapsearch
+ldapsearch -v -LLL -H ldap://glauth.glauth.svc.cluster.local -D cn=redhat,ou=csa,dc=latam,dc=redhat -w redhat -x -b "dc=latam,dc=redhat" cn=hi
+</code></pre></div></div>
+<p>The above search should return information about user named <em>‘hi’</em>. If you want to test the secure port 636, export <code class="language-plaintext highlighter-rouge">LDAPTLS_REQCERT=never</code> and redo the search with <code class="language-plaintext highlighter-rouge">ldaps://</code>.</p>
+
+<h3 id="configure-an-ldap-idp">Configure an LDAP IDP</h3>
+<h4 id="configure-using-ocm-web-ui">Configure using OCM WEB UI</h4>
+<p>Now, it’s all about adding a new LDAP IDP using the <a href="https://console.redhat.com/openshift">OCM web UI </a> like below</p>
+
+<p><span class="big"><img src="/redhat/idp/cert+ldap/img/ocm-ldap-idp-setup.png" alt="Add LDAP IDP with OCM GUI"></span></p>
+
+<blockquote>
+  <p>LDAP URL: ldaps://glauth.glauth.svc.cluster.local/dc=latam,dc=redhat?cn</p>
+</blockquote>
+
+<p><img class="emoji" title=":point_right:" alt=":point_right:" src="https://github.githubassets.com/images/icons/emoji/unicode/1f449.png" height="20" width="20"> and make sure to add glauth.crt</p>
+
+<p><span class="big"><img src="/redhat/idp/cert+ldap/img/ocm-ldap-idp-certificate.png" alt="Add LDAP IDP certificate with OCM GUI"></span></p>
+
+<h4 id="configure-using-the-terminal-and-oc-cli">Configure using the terminal and oc CLI</h4>
+<p>The other way you can configure is following the <a href="https://docs.openshift.com/container-platform/4.13/authentication/identity_providers/configuring-ldap-identity-provider.html">Openshift documentation for adding a new LDAP IDP</a> while using the CLI or using the <a href="/redhat/idp/cert+ldap/ldap/add-ldap-idp.sh">script provided in the repo</a> and below</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># from repo base directory</span>
+<span class="nb">cd </span>redhat/idp/cert+ldap/cert/ldap
+./add-ldap-idp.sh
+</code></pre></div></div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">type</span><span class="o">=</span><span class="s2">"private"</span>
+<span class="nv">ldap_host</span><span class="o">=</span><span class="s2">"glauth.glauth.svc.cluster.local"</span>
+<span class="nv">bind_dn</span><span class="o">=</span><span class="s2">"cn=redhat,ou=csa,dc=latam,dc=redhat"</span>
+<span class="nv">bind_pwd</span><span class="o">=</span><span class="s2">"redhat"</span> <span class="c"># change the passwd according to the bindDN used</span>
+<span class="nv">crt_file</span><span class="o">=</span>glauth.crt
+<span class="nv">ldap_searchbase</span><span class="o">=</span><span class="s2">"dc=latam,dc=redhat"</span>
+<span class="nv">ldap_filter</span><span class="o">=</span><span class="s2">"cn"</span>
+<span class="nv">ldap_url</span><span class="o">=</span><span class="s2">"ldaps://</span><span class="nv">$ldap_host</span><span class="s2">/</span><span class="nv">$ldap_searchbase</span><span class="s2">?</span><span class="nv">$ldap_filter</span><span class="s2">"</span>
+<span class="nv">secret_name</span><span class="o">=</span><span class="s2">"glauth-bind-passwd"</span>
+<span class="nv">config_map_name</span><span class="o">=</span><span class="s2">"glauth-cert-</span><span class="nv">$type</span><span class="s2">"</span>
+<span class="nb">export </span><span class="nv">patch_file</span><span class="o">=</span><span class="s2">"/tmp/ldap-idp-</span><span class="nv">$type</span><span class="s2">.yaml"</span>
+<span class="nb">export </span><span class="nv">idp_name</span><span class="o">=</span><span class="s2">"ldap-</span><span class="nv">$type</span><span class="s2">"</span>
+
+oc delete secret <span class="nv">$secret_name</span> <span class="nt">-n</span> openshift-config <span class="nt">--ignore-not-found</span>
+oc delete configmap <span class="nv">$config_map_name</span> <span class="nt">-n</span> openshift-config <span class="nt">--ignore-not-found</span>
+oc create secret generic <span class="nv">$secret_name</span> <span class="nt">--from-literal</span><span class="o">=</span><span class="nv">bindPassword</span><span class="o">=</span><span class="s2">"</span><span class="nv">$bind_pwd</span><span class="s2">"</span> <span class="nt">-n</span> openshift-config 
+oc create configmap <span class="nv">$config_map_name</span> <span class="nt">--from-file</span><span class="o">=</span>ca.crt<span class="o">=</span><span class="nv">$crt_file</span> <span class="nt">-n</span> openshift-config
+
+<span class="nb">cat</span> <span class="o">&lt;&lt;</span><span class="no">EOF</span><span class="sh"> &gt; </span><span class="nv">$patch_file</span><span class="sh">
+- ldap:
+    attributes:
+      email:
+        - mail
+      id:
+        - dn
+      name:
+        - cn
+      preferredUsername:
+        - uid
+    bindDN: </span><span class="nv">$bind_dn</span><span class="sh">
+    bindPassword:
+      name: </span><span class="nv">$secret_name</span><span class="sh">
+    ca:
+      name: </span><span class="nv">$config_map_name</span><span class="sh">
+    insecure: false
+    url: </span><span class="nv">$ldap_url</span><span class="sh">
+  mappingMethod: claim
+  name: </span><span class="nv">$idp_name</span><span class="sh">
+  type: LDAP
+</span><span class="no">EOF
+
+</span><span class="nb">echo</span> <span class="nt">-n</span> <span class="s2">"removing </span><span class="nv">$idp_name</span><span class="s2">... "</span>
+oc get oauth cluster <span class="nt">-o</span> yaml | yq <span class="s1">'del(.spec.identityProviders[] | select(.name == strenv(idp_name)))'</span> | oc apply <span class="nt">-f</span> -
+<span class="nb">echo</span> <span class="nt">-n</span> <span class="s2">"adding </span><span class="nv">$idp_name</span><span class="s2">... "</span>
+oc get oauth cluster <span class="nt">-o</span> yaml | yq <span class="s1">'.spec.identityProviders += load(strenv(patch_file))'</span> | oc apply <span class="nt">-f</span> -
+<span class="nb">rm</span> <span class="nv">$patch_file</span>
+</code></pre></div></div>
+<p><img class="emoji" title=":point_up:" alt=":point_up:" src="https://github.githubassets.com/images/icons/emoji/unicode/261d.png" height="20" width="20"> Above script adds a <em>‘type’</em> suffix to the ldap idp config in Openshift oauth. If you plan to <a href="#exposing-your-internal-ldap">expose it</a> and want to test the exposed version, add a new one pointing to the outside version, change the suffix and the <em>‘ldap_host’</em>.</p>
+<h3 id="adding-new-users">Adding new users</h3>
+<p>If you looked at the <a href="/redhat/idp/cert+ldap/ldap/deployment.yaml">configmap</a> you easily spotted how you´d add more users. Just go about repeating the block below and change the fields, mandatorily <em>‘name’</em>. The password is the sha256 of the clear text.</p>
+
+<p><span class="big"><img src="/redhat/idp/cert+ldap/img/glauth-config.toml.png" alt="glauth-config.toml"></span></p>
+
+<h3 id="exposing-your-internal-ldap">Exposing your internal LDAP</h3>
+<p>You can expose your recently added LDAP server by running</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>oc project glauth
+oc expose deployment glauth --name='glauth-public-exposed'  --target-port='3636' --port='636' --type='LoadBalancer'
+</code></pre></div></div>
+<p>That will add a load balancer to the cluster. If you need it to be deployed with a private IP add the <a href="https://kubernetes.io/docs/concepts/services-networking/service/#internal-load-balancer">custom annotation for your cloud provider</a></p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">v1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">Service</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">glauth-private-exposed</span>
+  <span class="na">namespace</span><span class="pi">:</span> <span class="s">glauth</span>
+  <span class="na">annotations</span><span class="pi">:</span>
+    <span class="c1"># GCP </span>
+    <span class="c1"># networking.gke.io/load-balancer-type: "Internal" </span>
+    <span class="c1"># AWS</span>
+    <span class="c1"># service.beta.kubernetes.io/aws-load-balancer-internal: "true" </span>
+    <span class="c1"># AZR</span>
+    <span class="c1"># service.beta.kubernetes.io/azure-load-balancer-internal: "true"</span>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">type</span><span class="pi">:</span> <span class="s">LoadBalancer</span>
+  <span class="na">ports</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">sldap</span>
+      <span class="na">port</span><span class="pi">:</span> <span class="m">636</span>
+      <span class="na">targetPort</span><span class="pi">:</span> <span class="m">3636</span>
+      <span class="na">protocol</span><span class="pi">:</span> <span class="s">TCP</span>
+  <span class="na">selector</span><span class="pi">:</span>
+    <span class="na">app</span><span class="pi">:</span> <span class="s">glauth</span>
+</code></pre></div></div>
+<p>Once you know the load balancer IP <code class="language-plaintext highlighter-rouge">oc get svc glauth-public-exposed -n glauth -o jsonpath='{.status.loadBalancer.ingress[0].hostname}'</code> you can add an entry to your DNS server pointing to it, but remember that the name you use needs to be in the certificate DNS names list of the glauth.crt certificate file created before.</p>
+
+<h4 id="about-sharing-the-load-balancer-for-other-services-in-the-cluster">About sharing the load balancer for other Services in the cluster</h4>
+<p>Yes, this is the case where an ingress won’t do because we’re talking about ports different than 80 and 443 and managed Openshift does not provide this easily, the best, fastest, simplest way I could find to get this going is using the NGINX Ingress Controller, which can be deployed using the operators hub and requires some configuration tricks to work, but that is a story for a different blog post…</p>
+
+
+</section>
+    <footer style="margin-top: 0;">
+  
+</footer>
+  </body>
+</html>
