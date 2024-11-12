@@ -196,4 +196,4 @@ spec:
           - name: clean
             image: docker.io/alpine
             script: |-
-              echo "nothing to do"             
+              echo "nothing to clean"             

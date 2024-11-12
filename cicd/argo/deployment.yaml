@@ -1,4 +1,5 @@
 # oc adm policy add-cluster-role-to-user cluster-admin -z system:serviceaccount:openshift-gitops:openshift-gitops-argocd-application-controller
+# oc adm policy add-cluster-role-to-user admin system:serviceaccount:openshift-gitops:openshift-gitops-argocd-application-controller
 apiVersion: v1
 kind: Namespace
 metadata:

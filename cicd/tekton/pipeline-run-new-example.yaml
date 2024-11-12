@@ -9,7 +9,7 @@ spec:
     podTemplate:
       securityContext:
         runAsNonRoot: true
-        runAsUser: 1000 # this is the non root user for podman build task
+        runAsUser: 1000 # this is the podman user from podman build task
         runAsGroup: 1000
         fsGroup: 1000
   pipelineRef:
