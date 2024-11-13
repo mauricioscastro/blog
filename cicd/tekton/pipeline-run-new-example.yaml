@@ -5,7 +5,7 @@ metadata:
   generateName: new-pipeline-run-
 spec:
   taskRunTemplate:
-    serviceAccountName: pipeline
+    serviceAccountName: pipeline # oc adm policy add-scc-to-user privileged -z pipeline
     podTemplate:
       securityContext:
         runAsNonRoot: true
