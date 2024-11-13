@@ -1,5 +1,3 @@
-# oc adm policy add-cluster-role-to-user cluster-admin -z system:serviceaccount:openshift-gitops:openshift-gitops-argocd-application-controller
-# oc adm policy add-cluster-role-to-user admin system:serviceaccount:openshift-gitops:openshift-gitops-argocd-application-controller
 apiVersion: v1
 kind: Namespace
 metadata:
@@ -64,3 +62,22 @@ spec:
     - port: 4000
   selector:
     app: blog
+
+# oc adm policy add-cluster-role-to-user cluster-admin -z system:serviceaccount:openshift-gitops:openshift-gitops-argocd-application-controller
+# oc adm policy add-cluster-role-to-user admin system:serviceaccount:openshift-gitops:openshift-gitops-argocd-application-controller
+#
+# project: default
+# source:
+#   repoURL: https://github.com/mauricioscastro/blog
+#   path: cicd/argo
+#   targetRevision: HEAD
+# destination:
+#   server: https://kubernetes.default.svc
+#   namespace: blog
+# syncPolicy:
+#   automated:
+#     prune: true
+#     selfHeal: true
+#   syncOptions:
+#     - CreateNamespace=true
+#
