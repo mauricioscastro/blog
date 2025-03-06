@@ -11,7 +11,7 @@ metadata:
   name: blog
   namespace: blog
   labels:
-    app.kubernetes.io/version: '0a76bd7.20241113162041'
+    app.kubernetes.io/version: '8f491b8.20250306170529'
 spec:
   replicas: 1
   selector:
