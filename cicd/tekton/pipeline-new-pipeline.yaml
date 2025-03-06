@@ -34,8 +34,12 @@ spec:
     #    
     - name: git-clone
       taskRef:
-        kind: ClusterTask
-        name: git-clone
+        resolver: hub
+        params:
+          - name: name
+            value: git-clone
+          - name: version
+            value: "0.9"
       workspaces:
         - workspace: git-source
           name: output
