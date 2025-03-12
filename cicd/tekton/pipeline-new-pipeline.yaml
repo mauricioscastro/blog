@@ -126,33 +126,8 @@ spec:
           value: $(params.target-image)
         - name: commit
           value: $(tasks.git-clone.results.commit)
-      taskSpec:
-        stepTemplate:
-          env:
-          - name: "HOME"
-            value: "/tmp"        
-        workspaces:
-          - name: output
-          - name: dockerconfig        
-        params:
-          - name: image
-          - name: commit 
-        results:
-          - name: image-tag
-        steps:
-          - name: build-and-push
-            image: quay.io/podman/stable
-            securityContext:
-              privileged: true 
-            script: |-
-              export REGISTRY_AUTH_FILE=$(workspaces.dockerconfig.path)/config.json
-              build_date=`date +'%Y%m%d%H%M%S'`          
-              short=`echo $(params.commit) | cut -c 1-7`
-              cd $(workspaces.output.path)
-              podman build . -t $(params.image):$short.$build_date
-              podman push $(params.image):$short.$build_date 
-              podman push $(params.image):$short.$build_date $(params.image):latest
-              echo "$short.$build_date" > $(results.image-tag.path)
+      taskRef:
+        name: podman
     #
     # update deployment so argo can sense and flag out-of-sync
     #     
