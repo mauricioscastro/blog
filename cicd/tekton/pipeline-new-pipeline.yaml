@@ -60,10 +60,6 @@ spec:
         - workspace: git-source
           name: output
       taskSpec:
-        stepTemplate:
-          env:
-          - name: "HOME"
-            value: "/tmp"      
         workspaces:
           - name: output
         steps:
@@ -88,10 +84,6 @@ spec:
         - name: pdf-dest-dir
           value: $(params.pdf-dest-dir)
       taskSpec:
-        stepTemplate:
-          env:
-          - name: "HOME"
-            value: "/tmp"          
         workspaces:
           - name: output      
         params:
@@ -143,10 +135,6 @@ spec:
         - name: cd-git-repo
           value: $(params.cd-git-repo)
       taskSpec:
-        stepTemplate:
-          env:
-          - name: "HOME"
-            value: "/tmp" 
         workspaces:
           - name: gitssh
         params:
@@ -155,6 +143,9 @@ spec:
         steps:
           - name: update-deployment
             image: docker.io/governmentpaas/git-ssh
+            env:
+             - name: "HOME"
+               value: "/tmp"             
             script: |-   
               cd /tmp
               export VERSION=$(params.version)
@@ -168,16 +159,11 @@ spec:
               sed -i -e "s;app.kubernetes.io/version:.*;app.kubernetes.io/version: '$VERSION';g" cicd/argo/deployment.yaml
               git add -A
               git commit -m "updating deployments with version $VERSION"
-              git status
               git push 2> /dev/null
     - name: clean
       runAfter:
         - cd-update 
       taskSpec:
-        stepTemplate:
-          env:
-          - name: "HOME"
-            value: "/tmp"       
         steps:
           - name: clean
             image: docker.io/alpine
