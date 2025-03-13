@@ -67,7 +67,6 @@ spec:
             image: docker.io/jekyll/builder
             script: |-
               cd $(workspaces.output.path)
-              #chmod -R a+rwx .
               bundle config set path /tmp/bundle
               bundle install
               bundler exec jekyll build -d /tmp/site --incremental
