@@ -42,8 +42,6 @@ metadata:
   namespace: blog  
 spec:
   params: 
-    - name: dummy
-      value: ""
     # gitlab
     # - name: gitrevision
     #   value: $(body.checkout_sha)
