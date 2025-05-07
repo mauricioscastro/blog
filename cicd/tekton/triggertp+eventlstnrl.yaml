@@ -43,16 +43,16 @@ metadata:
 spec:
   params:
     # gitlab
-    - name: gitrevision
-      value: $(body.checkout_sha)
-    - name: gitrepositoryurl
-      value: $(body.repository.git_http_url)
+    # - name: gitrevision
+    #   value: $(body.checkout_sha)
+    # - name: gitrepositoryurl
+    #   value: $(body.repository.git_http_url)
     #
     # github
-    # - name: gitrevision
-    #   value: $(body.head_commit.id)
-    # - name: gitrepositoryurl
-    #   value: $(body.url)      
+    - name: gitrevision
+      value: $(body.head_commit.id)
+    - name: gitrepositoryurl
+      value: $(body.url)      
 ---
 apiVersion: v1
 kind: Secret
@@ -85,6 +85,19 @@ spec:
             - name: eventTypes
               value:
                 - "Push Hook"
+        - name: verify-github-payload
+          ref:
+            name: "github"
+            kind: ClusterInterceptor
+            apiVersion: triggers.tekton.dev
+          params:
+          - name: "secretRef"
+            value:
+              secretName: git-secret
+              secretKey: secretToken
+          - name: "eventTypes"
+            value: 
+              - "pull_request"
       bindings:
         - ref: new-trigger-binding
       template:
