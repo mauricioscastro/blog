@@ -93,13 +93,13 @@ spec:
             kind: ClusterInterceptor
             apiVersion: triggers.tekton.dev
           params:
-          - name: "secretRef"
-            value:
-              secretName: git-secret
-              secretKey: secretToken
-          - name: "eventTypes"
-            value: 
-              - "pull_request"
+            - name: "secretRef"
+              value:
+                secretName: git-secret
+                secretKey: secretToken
+            - name: "eventTypes"
+              value: 
+                - "pull_request"
       bindings:
         - ref: new-trigger-binding
       template:
