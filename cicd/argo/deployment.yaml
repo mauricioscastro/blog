@@ -11,7 +11,7 @@ metadata:
   name: blog
   namespace: blog
   labels:
-    app.kubernetes.io/version: '02df9e3.20250507143832-github_push_test'
+    app.kubernetes.io/version: '02df9e3.20250507143832-github_push_test-1'
 spec:
   replicas: 1
   selector:
