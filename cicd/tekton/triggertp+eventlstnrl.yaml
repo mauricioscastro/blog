@@ -51,10 +51,10 @@ spec:
     #   value: $(body.repository.git_http_url)
     #
     # github
-    # - name: gitrevision
-    #   value: $(body.head_commit.id)
-    # - name: gitrepositoryurl
-    #   value: $(body.url)      
+    - name: gitrevision
+      value: $(body.head_commit.id)
+    - name: gitrepositoryurl
+      value: $(body.url)      
 ---
 apiVersion: v1
 kind: Secret
@@ -75,18 +75,18 @@ spec:
   triggers:
     - name: gitlab-push-events-trigger
       interceptors:
-        - name: verify-gitlab-payload
-          ref:
-            name: gitlab
-            kind: ClusterInterceptor
-          params:
-            - name: secretRef
-              value:
-                secretName: git-secret
-                secretKey: secretToken
-            - name: eventTypes
-              value:
-                - "Push Hook"
+        # - name: verify-gitlab-payload
+        #   ref:
+        #     name: gitlab
+        #     kind: ClusterInterceptor
+        #   params:
+        #     - name: secretRef
+        #       value:
+        #         secretName: git-secret
+        #         secretKey: secretToken
+        #     - name: eventTypes
+        #       value:
+        #         - "Push Hook"
         - name: verify-github-payload
           ref:
             name: "github"
