@@ -41,7 +41,9 @@ metadata:
   name: new-trigger-binding
   namespace: blog  
 spec:
-  params:
+  params: 
+    - name: dummy
+      value: ""
     # gitlab
     # - name: gitrevision
     #   value: $(body.checkout_sha)
@@ -49,10 +51,10 @@ spec:
     #   value: $(body.repository.git_http_url)
     #
     # github
-    - name: gitrevision
-      value: $(body.head_commit.id)
-    - name: gitrepositoryurl
-      value: $(body.url)      
+    # - name: gitrevision
+    #   value: $(body.head_commit.id)
+    # - name: gitrepositoryurl
+    #   value: $(body.url)      
 ---
 apiVersion: v1
 kind: Secret
