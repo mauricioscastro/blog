@@ -42,10 +42,17 @@ metadata:
   namespace: blog  
 spec:
   params:
+    # gitlab
+    # - name: gitrevision
+    #   value: $(body.checkout_sha)
+    # - name: gitrepositoryurl
+    #   value: $(body.repository.git_http_url)
+    #
+    # github
     - name: gitrevision
-      value: $(body.checkout_sha)
+      value: $(body.head_commit.id)
     - name: gitrepositoryurl
-      value: $(body.repository.git_http_url)
+      value: $(body.url)      
 ---
 apiVersion: v1
 kind: Secret
