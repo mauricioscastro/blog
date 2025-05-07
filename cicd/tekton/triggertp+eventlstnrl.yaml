@@ -89,7 +89,6 @@ spec:
           ref:
             name: "github"
             kind: ClusterInterceptor
-            apiVersion: triggers.tekton.dev
           params:
             - name: "secretRef"
               value:
