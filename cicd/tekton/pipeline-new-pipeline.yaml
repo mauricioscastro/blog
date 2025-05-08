@@ -1,11 +1,4 @@
-﻿apiVersion: v1
-kind: Namespace
-metadata:
-  name: blog
-  labels:
-    name: blog
----
-apiVersion: tekton.dev/v1
+﻿apiVersion: tekton.dev/v1
 kind: Pipeline
 metadata:
   name: new-pipeline
