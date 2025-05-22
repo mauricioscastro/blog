@@ -1,0 +1,104 @@
+apiVersion: triggers.tekton.dev/v1beta1
+kind: TriggerTemplate
+metadata:
+  name: new-trigger-template
+  namespace: blog  
+spec:
+  resourcetemplates:
+  - apiVersion: tekton.dev/v1beta1
+    kind: PipelineRun
+    metadata:
+      generateName: new-pipeline-run-hook-
+    spec:
+      podTemplate:
+        securityContext:
+          runAsNonRoot: true
+          runAsUser: 1000 # this is the podman user from podman build task
+          runAsGroup: 1000
+          fsGroup: 1000    
+      serviceAccountName: pipeline
+      pipelineRef:
+        name: new-pipeline
+      workspaces:
+        - name: git-source
+          volumeClaimTemplate:
+            spec:
+              accessModes:
+                - ReadWriteOnce 
+              resources:
+                requests:
+                  storage: 1Gi
+        - name: registry-credentials
+          secret:
+            secretName: quayio-robot-credentials
+        - name: git-credentials
+          secret:
+            secretName: git-credentials                  
+---
+apiVersion: triggers.tekton.dev/v1alpha1
+kind: TriggerBinding
+metadata:
+  name: new-trigger-binding
+  namespace: blog  
+spec:
+  params: 
+    # gitlab
+    - name: gitrevision
+      value: $(body.checkout_sha)
+    - name: gitrepositoryurl
+      value: $(body.repository.git_http_url)
+    #
+    # github
+    # - name: gitrevision
+    #   value: $(body.head_commit.id)
+    # - name: gitrepositoryurl
+    #   value: $(body.html_url)      
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: git-secret
+  namespace: blog  
+type: Opaque
+stringData:
+  secretToken: "1234567"
+---
+apiVersion: triggers.tekton.dev/v1beta1
+kind: EventListener
+metadata:
+  name: gitlab-listener-new
+  namespace: blog  
+spec:
+  serviceAccountName: pipeline
+  triggers:
+    - name: gitlab-push-events-trigger
+      interceptors:
+        - name: verify-gitlab-payload
+          ref:
+            name: gitlab
+            kind: ClusterInterceptor
+          params:
+            - name: secretRef
+              value:
+                secretName: git-secret
+                secretKey: secretToken
+            - name: eventTypes
+              value:
+                - "Push Hook"
+        # - name: verify-github-payload
+        #   ref:
+        #     name: "github"
+        #     kind: ClusterInterceptor
+        #   params:
+        #     - name: "secretRef"
+        #       value:
+        #         secretName: git-secret
+        #         secretKey: secretToken
+        #     - name: "eventTypes"
+        #       value: 
+        #         - "pull_request"
+      bindings:
+        - ref: new-trigger-binding
+      template:
+        ref: new-trigger-template
+
