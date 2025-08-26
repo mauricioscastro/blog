@@ -59,6 +59,7 @@ spec:
           - name: build
             image: docker.io/jekyll/builder
             script: |-
+              chmod -R 777 $(workspaces.output.path)
               cd $(workspaces.output.path)
               bundle config set path /tmp/bundle
               bundle install
