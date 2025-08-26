@@ -1,31 +1,25 @@
 apiVersion: tekton.dev/v1
 kind: PipelineRun
 metadata:
-  namespace: blog
   generateName: new-pipeline-run-
+  namespace: blog
 spec:
-  taskRunTemplate:
-    serviceAccountName: pipeline # oc adm policy add-scc-to-user privileged -z pipeline
-    podTemplate:
-      securityContext:
-        runAsNonRoot: true
-        runAsUser: 1000 # this is the podman user from podman build task
-        runAsGroup: 1000
-        fsGroup: 1000
   pipelineRef:
     name: new-pipeline
+  taskRunTemplate:
+    serviceAccountName: pipeline
   workspaces:
-    - name: git-source 
+    - name: git-source
       volumeClaimTemplate:
         spec:
           accessModes:
             - ReadWriteOnce 
           resources:
             requests:
-              storage: 1Gi
+              storage: 1Gi      
     - name: registry-credentials
       secret:
         secretName: quayio-robot-credentials
     - name: git-credentials
       secret:
-        secretName: git-credentials  
+        secretName: git-credentials        
