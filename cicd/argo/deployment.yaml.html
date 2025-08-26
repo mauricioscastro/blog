@@ -1,0 +1,207 @@
+
+
+
+<!DOCTYPE html>
+<html lang="en-US">
+    <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/x-icon" href="/img/favicon.ico">
+    <link rel="stylesheet" href="/assets/css/style.css?v=">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+    <style>
+      header h1 {
+        font-size: 38px;
+      }
+      h1 {
+        font-size: 28px;
+      }
+      h2 {
+        font-size: 20px;
+      }      
+      body {
+        margin: 0px 50px 0px 50px; 
+      }
+      em {
+        word-wrap: break-word;
+      }
+      p {
+        word-wrap: break-word;
+      }    
+      .big img {
+        display: block;
+        max-width: 100%;
+        height: auto;
+      }
+      .text_icon img {
+        max-height: 0.7em; 
+      }
+      blockquote {
+        padding: 0 0 0 5px;
+        margin-bottom: 20px;
+        font-size: 1.1em;
+        border-left: 10px solid #9b9b9b;
+        word-wrap: break-word;
+      }
+      ul {
+        padding-left: 1em
+      }
+      li {
+        padding-left: 1em
+      }
+      li:before {
+        content: "";
+        margin-left: -0.5rem;
+      }
+      table {
+        border-collapse: collapse;
+        width: 100%;
+      }
+      th, td {
+        text-align: left;
+        padding: 8px;
+        word-wrap: break-word;
+        padding: 3px 5px 3px 5px;
+      }
+      tr:nth-child(even) {
+        background-color: #d7dae0;
+      }
+    </style>
+    <!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Blog Series | A compiled series of my day by day life stories and thoughts</title>
+<meta name="generator" content="Jekyll v3.9.5" />
+<meta property="og:title" content="Blog Series" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Syntax Highlighted File Contents" />
+<meta property="og:description" content="Syntax Highlighted File Contents" />
+<meta property="og:site_name" content="Blog Series" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Blog Series" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Syntax Highlighted File Contents","headline":"Blog Series","url":"/cicd/argo/deployment.yaml.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+  </head>
+  <body>
+    <header style="padding-bottom: 15px; padding-top: 20px;">
+  <h1 style="word-break: break-word; margin-bottom: 0; border-bottom: 0; padding-bottom: 0;">
+    <a href="/">Blog Series</a>
+    
+  </h1>
+  <div>Syntax Highlighted File Contents</div>
+</header>
+    <section>
+  <div style="padding-top: 10px;">
+    
+    
+    <a href="deployment.yaml" style="color: #6d6d6d;"><div style="margin-bottom: 0; font-size: 110%; font-weight: bold;">deployment.yaml</div></a>
+    
+<figure class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span class="na">kind</span><span class="pi">:</span> <span class="s">RoleBinding</span>
+<span class="na">apiVersion</span><span class="pi">:</span> <span class="s">rbac.authorization.k8s.io/v1</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">openshift-gitops-argocd-application-controller-admin</span>
+  <span class="na">namespace</span><span class="pi">:</span> <span class="s">blog</span>
+<span class="na">subjects</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">kind</span><span class="pi">:</span> <span class="s">ServiceAccount</span>
+    <span class="na">name</span><span class="pi">:</span> <span class="s">openshift-gitops-argocd-application-controller</span>
+    <span class="na">namespace</span><span class="pi">:</span> <span class="s">openshift-gitops</span>
+<span class="na">roleRef</span><span class="pi">:</span>
+  <span class="na">apiGroup</span><span class="pi">:</span> <span class="s">rbac.authorization.k8s.io</span>
+  <span class="na">kind</span><span class="pi">:</span> <span class="s">ClusterRole</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">admin</span>
+<span class="nn">---</span>
+<span class="na">apiVersion</span><span class="pi">:</span> <span class="s">apps/v1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">Deployment</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">blog</span>
+  <span class="na">namespace</span><span class="pi">:</span> <span class="s">blog</span>
+  <span class="na">labels</span><span class="pi">:</span>
+    <span class="na">app.kubernetes.io/version</span><span class="pi">:</span> <span class="s1">'</span><span class="s">2d7cb1c.20250826195131'</span>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">replicas</span><span class="pi">:</span> <span class="m">1</span>
+  <span class="na">selector</span><span class="pi">:</span>
+    <span class="na">matchLabels</span><span class="pi">:</span>
+      <span class="na">app</span><span class="pi">:</span> <span class="s">blog</span>
+  <span class="na">template</span><span class="pi">:</span>
+    <span class="na">metadata</span><span class="pi">:</span>
+      <span class="na">labels</span><span class="pi">:</span>
+        <span class="na">app</span><span class="pi">:</span> <span class="s">blog</span>
+    <span class="na">spec</span><span class="pi">:</span>
+      <span class="na">volumes</span><span class="pi">:</span>
+        <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">workdir</span>
+          <span class="na">emptyDir</span><span class="pi">:</span> <span class="pi">{}</span>
+      <span class="na">containers</span><span class="pi">:</span>
+        <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">blogrunner</span>
+          <span class="na">image</span><span class="pi">:</span> <span class="s">quay.io/mauriciosantiagodecastro/blogrunner:latest</span>
+          <span class="na">imagePullPolicy</span><span class="pi">:</span> <span class="s">Always</span>
+          <span class="na">ports</span><span class="pi">:</span>
+            <span class="pi">-</span> <span class="na">containerPort</span><span class="pi">:</span> <span class="m">4000</span>
+          <span class="na">volumeMounts</span><span class="pi">:</span>
+            <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">workdir</span>
+              <span class="na">mountPath</span><span class="pi">:</span> <span class="s">/workdir</span>
+          <span class="na">env</span><span class="pi">:</span>
+            <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">GIT_REPO</span>
+              <span class="na">value</span><span class="pi">:</span> <span class="s">https://github.com/mauricioscastro/blog</span>
+        <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">md2pdf</span>
+          <span class="na">image</span><span class="pi">:</span> <span class="s">quay.io/mauriciosantiagodecastro/md2pdf</span>
+          <span class="na">imagePullPolicy</span><span class="pi">:</span> <span class="s">Always</span>
+          <span class="na">volumeMounts</span><span class="pi">:</span>
+            <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">workdir</span>
+              <span class="na">mountPath</span><span class="pi">:</span> <span class="nl">&amp;pdf_collection_base_path</span> <span class="s">/usr/local/documents/mscastro</span>
+          <span class="na">env</span><span class="pi">:</span>
+            <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">PDF_COLLECTION_BASE_PATH</span>
+              <span class="na">value</span><span class="pi">:</span> <span class="nv">*pdf_collection_base_path</span>
+          <span class="na">command</span><span class="pi">:</span>
+            <span class="pi">-</span> <span class="s">/bin/sh</span>
+          <span class="na">args</span><span class="pi">:</span>
+            <span class="pi">-</span> <span class="s">-c</span>
+            <span class="pi">-</span> <span class="s2">"</span><span class="s">while</span><span class="nv"> </span><span class="s">true;</span><span class="nv"> </span><span class="s">do</span><span class="nv"> </span><span class="se">\n</span><span class="nv">  </span><span class="s">for</span><span class="nv"> </span><span class="s">md</span><span class="nv"> </span><span class="s">in</span><span class="nv"> </span><span class="s">`find</span><span class="nv"> </span><span class="s">$PDF_COLLECTION_BASE_PATH</span><span class="nv"> </span><span class="s">-name</span><span class="nv"> </span><span class="se">\"</span><span class="s">*.md</span><span class="se">\"</span><span class="nv"> </span><span class="s">-newermt</span><span class="nv"> </span><span class="se">\"</span><span class="s">10</span><span class="nv"> </span><span class="s">seconds</span><span class="nv"> </span><span class="s">ago</span><span class="se">\"</span><span class="nv"> </span><span class="s">-size</span><span class="nv"> </span><span class="s">+10c</span><span class="nv"> </span><span class="s">|</span><span class="nv"> </span><span class="s">grep</span><span class="nv"> </span><span class="s">-v</span><span class="nv"> </span><span class="s">404</span><span class="nv"> </span><span class="s">|</span><span class="nv"> </span><span class="s">grep</span><span class="nv"> </span><span class="s">-v</span><span class="nv"> </span><span class="s">$PDF_COLLECTION_BASE_PATH/bundle</span><span class="nv"> </span><span class="s">|</span><span class="nv"> </span><span class="s">grep</span><span class="nv"> </span><span class="s">-v</span><span class="nv"> </span><span class="s">$PDF_COLLECTION_BASE_PATH/site`;</span><span class="nv"> </span><span class="s">do</span><span class="nv"> </span><span class="se">\n</span><span class="nv">    </span><span class="s">m2f</span><span class="nv"> </span><span class="s">$md</span><span class="nv"> </span><span class="s">pdf</span><span class="nv"> </span><span class="se">\\\n</span><span class="nv">      </span><span class="s">footerTemplate=</span><span class="se">\"</span><span class="s">&lt;div</span><span class="nv"> </span><span class="s">style=</span><span class="se">\\\"</span><span class="s">font-size:</span><span class="nv"> </span><span class="s">9px;</span><span class="nv"> </span><span class="s">margin:</span><span class="nv"> </span><span class="s">0</span><span class="nv"> </span><span class="s">auto;</span><span class="se">\\\"</span><span class="s">&gt;</span><span class="nv"> </span><span class="s">&lt;span</span><span class="nv"> </span><span class="s">class=</span><span class="se">\"</span><span class="s">pageNumber</span><span class="se">\"</span><span class="s">&gt;&lt;/span&gt;</span><span class="nv"> </span><span class="s">/</span><span class="nv"> </span><span class="s">&lt;span</span><span class="nv"> </span><span class="s">class=</span><span class="se">\"</span><span class="s">totalPages</span><span class="se">\"</span><span class="s">&gt;&lt;/span&gt;&lt;/div&gt;</span><span class="se">\"</span><span class="nv"> </span><span class="se">\\\n</span><span class="nv">      </span><span class="s">headerTemplate=</span><span class="se">\"</span><span class="s">&lt;span/&gt;</span><span class="se">\"</span><span class="nv"> </span><span class="s">margin.top=</span><span class="se">\"</span><span class="s">0.8cm</span><span class="se">\"</span><span class="nv"> </span><span class="se">\n</span><span class="nv">  </span><span class="s">done</span><span class="se">\n</span><span class="nv">  </span><span class="s">sleep</span><span class="nv"> </span><span class="s">10</span><span class="se">\n</span><span class="s">done</span><span class="nv">             </span><span class="s">"</span>
+<span class="nn">---</span>
+<span class="na">apiVersion</span><span class="pi">:</span> <span class="s">v1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">Service</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">blog</span>
+  <span class="na">namespace</span><span class="pi">:</span> <span class="s">blog</span>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">ports</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">port</span><span class="pi">:</span> <span class="m">4000</span>
+  <span class="na">selector</span><span class="pi">:</span>
+    <span class="na">app</span><span class="pi">:</span> <span class="s">blog</span>
+
+<span class="c1"># oc adm policy add-cluster-role-to-user cluster-admin -z system:serviceaccount:openshift-gitops:openshift-gitops-argocd-application-controller</span>
+<span class="c1"># oc adm policy add-cluster-role-to-user admin system:serviceaccount:openshift-gitops:openshift-gitops-argocd-application-controller</span>
+<span class="c1">#</span>
+<span class="c1"># project: default</span>
+<span class="c1"># source:</span>
+<span class="c1">#   repoURL: https://github.com/mauricioscastro/blog</span>
+<span class="c1">#   path: cicd/argo</span>
+<span class="c1">#   targetRevision: HEAD</span>
+<span class="c1"># destination:</span>
+<span class="c1">#   server: https://kubernetes.default.svc</span>
+<span class="c1">#   namespace: blog</span>
+<span class="c1"># syncPolicy:</span>
+<span class="c1">#   automated:</span>
+<span class="c1">#     prune: true</span>
+<span class="c1">#     selfHeal: true</span>
+<span class="c1">#   syncOptions:</span>
+<span class="c1">#     - CreateNamespace=true</span></code></pre></figure>
+
+  </div>     
+</section>
+    <footer style="margin-top: 0;">
+  
+</footer>
+  </body>
+</html>
