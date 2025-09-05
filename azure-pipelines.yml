@@ -23,5 +23,5 @@ steps:
     connectionType: 'Kubernetes Service Connection'
     kubernetesServiceEndpoint: 'openshift-ccr-devops'
     command: 'apply'
-    arguments: '-f $(Build.Repository.LocalPath)/cicd/argo/deployment.yaml'
+    arguments: '-f $(Build.Repository.LocalPath)/cicd/argo/deployment.yaml --validate=false'
  
