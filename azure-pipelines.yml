@@ -23,5 +23,5 @@ steps:
     connectionType: 'Kubernetes Service Connection'
     kubernetesServiceEndpoint: 'openshift-ccr-devops'
     namespace: 'blog'
-    command: 'apply'
+    command: 'apply -f'
     arguments: '$(Build.Repository.LocalPath)/cicd/argo/deployment.yaml'
