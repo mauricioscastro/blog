@@ -1,0 +1,164 @@
+﻿apiVersion: tekton.dev/v1
+kind: Pipeline
+metadata:
+  name: new-pipeline
+  namespace: blog
+spec:
+  workspaces:
+    - name: git-source
+    - name: registry-credentials
+    - name: git-credentials
+  params:
+    - name: git-repo
+      type: string
+      default: https://github.com/mauricioscastro/blog      
+    - name: pdf-dest-dir
+      type: string
+      default: /tmp/mscastro-blog
+    - name: target-image
+      type: string
+      default: quay.io/mauriciosantiagodecastro/blogrunner   
+    - name: cd-git-repo
+      type: string
+      default: git@github.com:mauricioscastro/blog.git          
+  tasks:
+    #
+    # clone repo with git-clone
+    #    
+    - name: git-clone
+      taskRef:
+        resolver: hub
+        params:
+          - name: name
+            value: git-clone
+          - name: version
+            value: "0.9"
+      workspaces:
+        - workspace: git-source
+          name: output
+      params:
+        - name: url
+          value: $(params.git-repo)
+        - name: subdirectory
+          value: ""
+        - name: deleteExisting
+          value: 'true'
+    #
+    # test build with jekyll
+    #            
+    - name: build-site
+      runAfter:
+        - git-clone     
+      workspaces:
+        - workspace: git-source
+          name: output
+      taskSpec:
+        workspaces:
+          - name: output
+        steps:
+          - name: build
+            image: docker.io/jekyll/builder
+            script: |-
+              chmod -R 777 $(workspaces.output.path)
+              cd $(workspaces.output.path)
+              bundle config set path /tmp/bundle
+              bundle install
+              bundler exec jekyll build -d /tmp/site --incremental
+    #
+    # test md conversion to pdf
+    #                   
+    - name: add-pdf
+      runAfter:
+        - build-site
+      workspaces:
+        - workspace: git-source 
+          name: output
+      params:
+        - name: pdf-dest-dir
+          value: $(params.pdf-dest-dir)
+      taskSpec:
+        workspaces:
+          - name: output      
+        params:
+          - name: pdf-dest-dir
+        steps:
+          - name: md-to-pdf
+            image: quay.io/mauriciosantiagodecastro/md2pdf
+            script: |-
+              mkdir -p $(params.pdf-dest-dir)
+              cp -r $(workspaces.output.path)/* $(params.pdf-dest-dir)
+              for md in `find $(params.pdf-dest-dir) -name "*.md" -size +10c | grep -v 404`; do 
+                m2f $md pdf \
+                  footerTemplate="<div style=\"font-size: 9px; margin: 0 auto;\"> <span class="pageNumber"></span> / <span class="totalPages"></span></div>" \
+                  headerTemplate="<span/>" margin.top="0.8cm" 
+              done
+              pdf_count=`find $(params.pdf-dest-dir) -name  "*.pdf" | wc -l`
+              echo "number of converted pdfs: $pdf_count"
+              test $pdf_count -gt 0
+    #
+    # use podman to push 
+    #        
+    - name: podman
+      runAfter:
+        - add-pdf
+      workspaces:
+        - workspace: git-source 
+          name: output
+        - workspace: registry-credentials 
+          name: dockerconfig   
+      params:
+        - name: image
+          value: $(params.target-image)
+        - name: commit
+          value: $(tasks.git-clone.results.commit)
+      taskRef:
+        name: podman
+    #
+    # update deployment so argo can sense and flag out-of-sync
+    #     
+    - name: cd-update
+      runAfter:
+        - podman
+      workspaces:
+        - workspace: git-credentials 
+          name: gitssh   
+      params:
+        - name: version
+          value: $(tasks.podman.results.image-tag)
+        - name: cd-git-repo
+          value: $(params.cd-git-repo)
+      taskSpec:
+        workspaces:
+          - name: gitssh
+        params:
+          - name: version 
+          - name: cd-git-repo
+        steps:
+          - name: update-deployment
+            image: docker.io/governmentpaas/git-ssh
+            env:
+             - name: "HOME"
+               value: "/tmp"             
+            script: |-   
+              cd /tmp
+              export VERSION=$(params.version)
+              export GIT_SSH_COMMAND="ssh -i /tmp/gitkey -o IdentitiesOnly=yes -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
+              cp $(workspaces.gitssh.path)/gitkey .
+              chmod 0400 gitkey
+              git clone $(params.cd-git-repo)
+              cd `echo $(params.cd-git-repo) | sed -e 's/.git//g' -e 's;.*/;;g'`
+              git config --global user.email "tekton@openshift"
+              git config --global user.name "tekton"
+              sed -i -e "s;app.kubernetes.io/version:.*;app.kubernetes.io/version: '$VERSION';g" cicd/argo/deployment.yaml
+              git add -A
+              git commit -m "updating deployments with version $VERSION"
+              git push 2> /dev/null
+    - name: clean
+      runAfter:
+        - cd-update 
+      taskSpec:
+        steps:
+          - name: clean
+            image: docker.io/alpine
+            script: |-
+              echo "nothing to clean"             
