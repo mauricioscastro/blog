@@ -11,6 +11,7 @@ steps:
   displayName: 'Run a multi-line script'
 
 - task: Kubernetes@1
+  name: remove_blog_ns
   displayName: 'ensure remove namespace'
   inputs:
     connectionType: 'Kubernetes Service Connection'
@@ -19,6 +20,7 @@ steps:
     arguments: 'namespace blog --ignore-not-found=true'
 
 - task: Kubernetes@1
+  name: create_blog_ns
   displayName: 'ensure exists namespace'
   inputs:
     connectionType: 'Kubernetes Service Connection'
@@ -27,6 +29,7 @@ steps:
     arguments: 'namespace blog'
 
 - task: KubernetesManifest@1
+  name: deploy_blog
   displayName: 'deploy application'
   inputs:
     action: 'deploy'
