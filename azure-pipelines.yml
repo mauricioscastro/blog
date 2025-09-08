@@ -16,7 +16,7 @@ steps:
     connectionType: 'kubernetesServiceConnection'
     kubernetesServiceConnection: 'openshift-ccr-devops'
     manifests: '$(Build.Repository.LocalPath)/cicd/argo/deployment.yaml'
-    namespace: blog
+    # namespace: blog
 
 # - task: Kubernetes@1
 #   inputs:
