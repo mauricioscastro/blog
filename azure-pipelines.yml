@@ -12,7 +12,7 @@ steps:
 
 - task: Kubernetes@1
   name: remove_blog_ns
-  displayName: 'ensure remove namespace'
+  displayName: 'Ensure remove namespace'
   inputs:
     connectionType: 'Kubernetes Service Connection'
     kubernetesServiceEndpoint: 'openshift-ccr-devops'
@@ -21,7 +21,7 @@ steps:
 
 - task: Kubernetes@1
   name: create_blog_ns
-  displayName: 'ensure exists namespace'
+  displayName: 'Ensure exists namespace'
   inputs:
     connectionType: 'Kubernetes Service Connection'
     kubernetesServiceEndpoint: 'openshift-ccr-devops'
@@ -30,7 +30,7 @@ steps:
 
 - task: KubernetesManifest@1
   name: deploy_blog
-  displayName: 'deploy application'
+  displayName: 'Deploy application'
   inputs:
     action: 'deploy'
     connectionType: 'kubernetesServiceConnection'
