@@ -10,18 +10,20 @@ steps:
     find $(Build.Repository.LocalPath)
   displayName: 'Run a multi-line script'
 
+- task: Kubernetes@1
+  inputs:
+    connectionType: 'Kubernetes Service Connection'
+    kubernetesServiceEndpoint: 'openshift-ccr-devops'
+    command: 'create'
+    arguments: 'namespace blog'
+
 - task: KubernetesManifest@1
   inputs:
     action: 'deploy'
     connectionType: 'kubernetesServiceConnection'
     kubernetesServiceConnection: 'openshift-ccr-devops'
     manifests: '$(Build.Repository.LocalPath)/cicd/argo/deployment.yaml'
-    # namespace: blog
+    namespace: blog
 
-# - task: Kubernetes@1
-#   inputs:
-#     connectionType: 'Kubernetes Service Connection'
-#     kubernetesServiceEndpoint: 'openshift-ccr-devops'
-#     command: 'apply'
-#     arguments: '-f $(Build.Repository.LocalPath)/cicd/argo/deployment.yaml --validate=false'
+
  
