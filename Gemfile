@@ -11,8 +11,8 @@ gem "html-pipeline", "~> 2.14.3"
 gem "sass", "~> 3.7.4"
 gem "safe_yaml", "~> 1.0.5"
 gem "nokogiri", "~> 1.15.2"
-gem "jekyll", "~> 3.9.3"
-gem "jekyll-sass-converter", "~> 1.5.2"
+gem "jekyll", "~> 4.4.1"
+gem "jekyll-sass-converter", "~> 3.0"
 gem "jekyll-redirect-from", "~> 0.16.0"
 gem "jekyll-sitemap", "~> 1.4.0"
 gem "jekyll-feed", "~> 0.15.1"
@@ -28,6 +28,4 @@ gem "jekyll-titles-from-headings", "~> 0.5.3"
 gem "jekyll-theme-tactile", "~> 0.2.0"
 gem "jekyll-regex-replace"
 gem "jekyll-highlight-param"
-
-
-
+gem "csv", "~> 3.3"
