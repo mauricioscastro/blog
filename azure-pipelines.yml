@@ -1,0 +1,42 @@
+trigger:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- script: |
+    echo "hello"
+    find $(Build.Repository.LocalPath)
+  displayName: 'Run a multi-line script'
+
+- task: Kubernetes@1
+  name: remove_blog_ns
+  displayName: 'Ensure remove namespace'
+  inputs:
+    connectionType: 'Kubernetes Service Connection'
+    kubernetesServiceEndpoint: 'openshift-ccr-devops'
+    command: 'delete'
+    arguments: 'namespace blog --ignore-not-found=true'
+
+- task: Kubernetes@1
+  name: create_blog_ns
+  displayName: 'Ensure exists namespace'
+  inputs:
+    connectionType: 'Kubernetes Service Connection'
+    kubernetesServiceEndpoint: 'openshift-ccr-devops'
+    command: 'create'
+    arguments: 'namespace blog'
+
+- task: KubernetesManifest@1
+  name: deploy_blog
+  displayName: 'Deploy application'
+  inputs:
+    action: 'deploy'
+    connectionType: 'kubernetesServiceConnection'
+    kubernetesServiceConnection: 'openshift-ccr-devops'
+    manifests: '$(Build.Repository.LocalPath)/cicd/argo/deployment.yaml'
+    namespace: blog
+
+
+ 
